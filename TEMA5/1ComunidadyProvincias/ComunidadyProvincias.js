@@ -85,31 +85,24 @@ var comunitats = [{
 ];
 
 function mostrarComunitats() {
-
     comunitats.forEach((element, index) => {
-        //console.log(element.comunitat);
+     
         var parrafo = document.createElement("option");
         parrafo.setAttribute("value", index);
         var conteido = document.createTextNode(element.comunitat);
         parrafo.appendChild(conteido)
         document.getElementById("comunitat").appendChild(parrafo);
-
     });
     mostrarProvincia();
 }
 
 function mostrarProvincia() {
-
     document.getElementById("comunitat").addEventListener("change", mostrar);
 }
 
 function mostrar() {
     let nProvincia = document.getElementById("comunitat").value;
-
-    if (nProvincia != null) {
-        borrarProvincies(nProvincia);
-    }
-
+    borrarProvincies();
 
     comunitats[nProvincia].provincies.forEach((element, index) => {
         var parrafo = document.createElement("option");
@@ -117,22 +110,13 @@ function mostrar() {
         var conteido = document.createTextNode(element);
         parrafo.appendChild(conteido)
         document.getElementById("provincia").appendChild(parrafo);
-
     });
-   
-
 }
 
-function borrarProvincies(nProvincia) {
-    console.log("holz");
-
-    comunitats[nProvincia].provincies.forEach(element => {
-        console.log(element);
-
-        let borrar = document.querySelectorAll("option");
-        let ultimOption = borrar[borrar.length - 1];
-        ultimOption.parentNode.removeChild(ultimOption);
-    });
-
-
+function borrarProvincies() {
+    let select = document.getElementById("provincia");
+    console.log(select.options);
+    for (let i = select.options.length; i >= 0; i--) {
+        select.remove(i);
+    }
 }
