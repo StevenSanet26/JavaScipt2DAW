@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Embebido</title>
+</head>
+<body>
+    <p>Bienvenidos a DevCode.la</p>
+    <p>Saludos a todos!</p>
+    <p id="myEjemplo">Bon dia</p>
+    <script>
+        window.alert("BONA NIT");
+        var anys = window.prompt("Dime tus años");
+        var paragraf = document.getElementById("myEjemplo");
+       // alert('Hola DevCode.la');
+       paragraf.innerHTML="mediante innerHTML";
+        console.log(anys);
+        console.error("error", paragraf.innerHTML);
+        document.write("<h2>Mediante document.write")
+    </script>
+</body>
+</html>

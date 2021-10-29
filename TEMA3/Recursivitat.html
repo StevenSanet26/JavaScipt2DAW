@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Exercici de Recursitivats</h2>
+    <p>Buscar un numero aleatori entre el <b>0</b> i <b>50</b></p>
+    <p id=""></p>
+    <p id="numero"></p>
+    <p id="intento"></p>
+    <p>Els divisors son: <b id="divisors"></b></p>
+
+
+    <script>
+        var intento = 0;
+        var maximo = 50;
+        var minimo = 0;
+        var numeroAleatori = Math.floor(Math.random() * (50 + 1))
+        var divisores = new Array();
+        var operacion;
+
+        function recursividad(maximo, minimo, numeroAleatori) {
+            operacion = Math.trunc((maximo + minimo) / 2);
+            divisores.push(operacion);
+            intento++
+
+            if (numeroAleatori < operacion) {
+                maximo = operacion;
+                recursividad(maximo, minimo, numeroAleatori);
+
+            } else if (numeroAleatori > operacion) {
+                minimo = operacion;
+                recursividad(maximo, minimo, numeroAleatori);
+            }
+
+            return numeroAleatori;
+        }
+
+        var numero = recursividad(maximo, minimo, numeroAleatori);
+        document.getElementById("numero").innerHTML = "El numero aleatorio es  <b>" + numero + "</b>";
+        document.getElementById("intento").innerHTML = "Se ha realizado con <b>" + intento + "</b> intentos";
+        document.getElementById("divisors").innerHTML = divisores;
+
+    </script>
+</body>
+
+</html>
+</script>
+</body>
+
+</html>

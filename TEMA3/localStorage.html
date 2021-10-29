@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>LocalStorage de Usuari i contrasenya</h2>
+
+    <p>Usuario: <input type="text" id="usuario"></p>
+    <p>Contrasenya: <input type="password" id="contraseña"></p>
+    <button id="aceptar">Aceptar</button>
+    <p id="resultado"></p>
+
+    <script>
+        document.getElementById("aceptar").addEventListener("click", storage);
+
+        function storage() {
+
+            var username = document.getElementById("usuario").value;
+            var password = document.getElementById("contraseña").value;
+            var persona = JSON.parse(localStorage.getItem("user"));
+
+            let cliente = {
+                usuario: username,
+                contraseña: password
+            }
+
+            if (persona == null) {
+                localStorage.setItem("user", JSON.stringify(cliente));
+                document.getElementById("resultado").innerHTML = "Se ha registrado";
+            }else {
+                if (cliente.usuario == persona.usuario) {
+                    if(cliente.contraseña==persona.contraseña){
+                        document.getElementById("resultado").innerHTML = "S'ha iniciat sessió";
+                    }else{
+                        document.getElementById("resultado").innerHTML = "Contraseña erronia";
+                    }
+                }else{
+                    document.getElementById("resultado").innerHTML = "Usuari no trobat";
+                }
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

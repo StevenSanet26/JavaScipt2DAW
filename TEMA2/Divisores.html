@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Steven Pujos</title>
+</head>
+
+<body>
+    <h1>Divisores de un número</h1>
+
+    <p>
+        Introduce el numero <input type="text" id="number">
+        <button id="obtener">Obtener</button>
+    </p>
+
+    <script>
+
+        function calcular() {
+            let x = document.getElementById('number').value;
+            console.log(x);
+            document.write("Els divisors de " + x + " son: ");
+            for (i = x; i >= 0; i--) {
+                if (x % i == 0) {
+                    document.write(i + " ")
+                }
+            }
+        }
+        document.getElementById("obtener").addEventListener("click", calcular, false);
+
+    </script>
+
+
+</body>
+
+</html>

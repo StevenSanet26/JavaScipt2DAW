@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 id="titol">Benvinguts a un llarg viatge</h1>
+    <div id="element">
+      <p>Seleccione el color del titol:</p>
+      <input type="radio" id="red" name="color" value="red" />Rojo<br />
+      <input type="radio" id="blue" name="color" value="blue" />Azul<br />
+      <input type="radio" id="green" name="color" value="green" />Verde<br />
+      <button id="Aceptar">Aceptar</button><br />
+    </div>
+    <br />
+
+    <button id="borrar">Borrar</button>
+
+    <script>
+      document
+        .getElementById("Aceptar")
+        .addEventListener("click", cambiarColor);
+      document.getElementById("borrar").addEventListener("click", borrar);
+
+      
+      if (document.cookie == "color=red") {
+        document.getElementById("titol").style.color = "red";
+      } else if (document.cookie == "color=blue") {
+        document.getElementById("titol").style.color = "blue";
+      } else if (document.cookie == "color=green") {
+        document.getElementById("titol").style.color = "green";
+      }
+
+      function cambiarColor() {
+        var color = document.getElementsByName("color");
+
+        for (let i = 0; i < color.length; i++) {
+          if (color[i].checked) {
+            if (color[i] == document.getElementById("red")) {
+              document.getElementById("titol").style.color = "red";
+              document.cookie = "color=red";
+              document.getElementById("element").style.visibility = "hidden";
+            } else if (color[i] == document.getElementById("blue")) {
+              document.getElementById("titol").style.color = "blue";
+              document.getElementById("element").style.visibility = "hidden";
+              document.cookie = "color=blue";
+            } else if (color[i] == document.getElementById("green")) {
+              document.getElementById("titol").style.color = "green";
+              document.getElementById("element").style.visibility = "hidden";
+              document.cookie = "color=green";
+            }
+          }
+        }
+      }
+
+      function borrar() {
+        document.cookie = "color=; max-age=0";
+        document.getElementById("element").style.visibility = "visible";
+      }
+    </script>
+  </body>
+</html>
