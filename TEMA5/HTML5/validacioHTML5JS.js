@@ -62,8 +62,8 @@ function validarTel() {
     return true;
 }
 
-function error2(element, missatage) {
-    document.getElementById("missatgeError").innerHTML = missatage;
+function error2(element, missatge) {
+    document.getElementById("missatgeError").innerHTML = missatge;
     element.className = "error";
     element.focus();
 }

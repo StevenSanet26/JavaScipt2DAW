@@ -13,33 +13,40 @@
     <form action="" method="post">
         <div>
             <label for="dni">DNI</label>
-            <input type="text" id="dni" name="dni">
+            <input type="text" id="dni" name="dni" pattern="^\d{8}[a-zA-Z]$"
+                title="El dni ha de tener 9 digitos i una letra" required>
         </div>
         <div>
             <label for="fecha">Fecha</label>
-            <input type="text" id="fecha" name="fecha">
+            <input type="text" id="fecha" name="fecha"  min="1900-01-01" max="2021-12-31" pattern="^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$"
+                title="La fecha ha de ser amb el següent format YYYY/mm/dd" required>
         </div>
-        <label for="telefono">Telefono</label>
-        <input type="text" id="telefono" name="telefono">
+        <div>
+            <label for="telefono">Telefono</label>
+            <input type="text" id="telefono" name="telefono" pattern="^\d{3}\s\d{3}\s\d{3}$"
+                title="El telèfon ha de ser amb el següent format 999 999 999" required>
+        </div>
+        <div>
+            <label for="matricula">Matricula</label>
+            <input type="text" id="matricula" name="matricula" pattern="^\d{4} [A-Z]{3}$"
+            title="La matricula ha de tindre el següent format 9999 ZZZ" required>
+        </div>
 
-        <label for="matricula">Matricula</label>
-        <input type="text" id="matricula" name="matricula">
+        <div>
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" required>
+        </div>
 
-        <label for="email">Email</label>
-        <input type="text" id="email" name="email">
-
-        <label for="url">Url</label>
-        <input type="text" id="url" name="url">
-
-
-
-
-
-
-
-
+        <div>
+            <label for="url">Url</label>
+            <input type="text" id="url" name="url" required>
+        </div>
+        <div>
+            <input type="submit" name="enviar" id="enviar" value="Enviar">
+            <input type="reset" name="reset" id="reset" value="Reset">
+        </div>
+        <p id="misstageError"></p>
     </form>
-
 </body>
 
 </html>
