@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="ValidarAltaUsuari.js"></script>
+    <style>
+        .error {
+            border: solid 2px #FF0000;
+        }
+    </style>
+    <title>Validar Alta Usuari</title>
+</head>
+
+<body>
+    <h1>Validar Alta Usuari</h1>
+    <form action="" method="post">
+        <div>
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" pattern="^[\s\S]{0,25}$"
+                title="Nombre solo caracteres de 2 hasta 20" required>
+        </div>
+        <br>
+        <div>
+            <label for="apellidos">Apellidos</label>
+            <input type="text" id="apellidos" name="apellidos" min="2" maxlength="30"
+                title="Apellidos solo caracteres de 2 hasta 30" required>
+        </div>
+        <br>
+        <div>
+            <label for="NIF_NIE">NIF/NIE</label>
+            <input type="text" id="NIF_NIE" name="NIF_NIE" title="Se acepta NIF o NIE" required>
+        </div>
+        <br>
+        <div>
+            <label for="correoElectronico">Correo Electronico</label>
+            <input type="text" id="correoElectronico" id="correoElectronico" name="correoElectronico"
+                pattern="^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$"
+                title="EL correo tiene que tener el formato correcto" required>
+        </div>
+        <br>
+        <div>
+            <label for="repeticionCorreoElectronico">Repite el Correo Electronico</label>
+            <input type="text" id="repeticionCorreoElectronico" name="repeticionCorreoElectronico"
+                title="Tiene que ser el mismo que el anterior" requires>
+        </div>
+        <br>
+        <div>
+            <label for="nickname">Nickname</label>
+            <input type="text" id="nickname" name="nickname" min="2" maxlength="8"
+                title="Nickname solo caracteres de 2 hasta 8" required>
+        </div>
+        <br>
+        <div>
+            <label for="contraseña">Contraseña</label>
+            <input type="password" id="contraseña" name="contraseña" minlength="6" maxlength="15"
+                title="Introducir la contraseña" required>
+        </div>
+        <br>
+        <div>
+            <label for="repeticionContraseña"> Repite la contraseña</label>
+            <input type="password" id="repeticionContraseña" name="repeticionContraseña"
+                title="Repite la contraseña anterior" required>
+        </div>
+        <br>
+        <div><input type="submit" id="enviar" name="enviar" value="Enviar"></div>
+    </form>
+    <p id="missatgeError"></p>
+</body>
+
+</html>

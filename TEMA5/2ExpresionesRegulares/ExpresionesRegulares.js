@@ -7,7 +7,6 @@ function iniciar() {
 }
 
 function enviar(e) {
-    console.log("gol");
     esborrarError();
     if (validarDni() && validarFecha() && validarTel() && validarMatricula() && validarEmail() && validarUrl() && confirm("Confirma si vols enviar el formulari")) {
         return true;

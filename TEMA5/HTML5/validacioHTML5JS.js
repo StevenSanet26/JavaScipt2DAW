@@ -38,7 +38,7 @@ function validarNaix() {
         if (element.validity.rangerOverflow) {
             error2(element, "La data mínima ha de ser superior al 01/12/1900.");
         }
-        if (element.validity.rangerUnderfloe) {
+        if (element.validity.rangerUnderflow) {
             error2(element, "La data màxima ha de ser inferior al 31/12/2021.");
         }
         //error(element);
