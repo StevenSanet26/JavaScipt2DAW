@@ -31,8 +31,8 @@
         <br>
         <div>
             <label for="NIF_NIE">NIF/NIE</label>
-            <input type="text" id="NIF_NIE" name="NIF_NIE" pattern="^[XYZ]?\d{5,8}[A-Z]$" onblur="validarNIF_NIE()" title="Se acepta NIF o NIE"
-                required>
+            <input type="text" id="NIF_NIE" name="NIF_NIE" pattern="^[XYZ]?\d{5,8}[A-Z]$" onblur="validarNIF_NIE()"
+                title="Se acepta NIF o NIE" required>
         </div>
         <br>
         <div>
@@ -45,8 +45,8 @@
         <div>
             <label for="repeticionCorreoElectronico">Repite el Correo Electronico</label>
             <input type="text" id="repeticionCorreoElectronico" name="repeticionCorreoElectronico"
-                pattern="^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$" onblur="validarRepeticionCorreo()" title="Tiene que ser el mismo que el anterior"
-                required>
+                pattern="^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$" onblur="validarRepeticionCorreo()"
+                title="Tiene que ser el mismo que el anterior" required>
         </div>
         <br>
         <div>
@@ -63,11 +63,22 @@
         <br>
         <div>
             <label for="repeticionContraseña"> Repite la contraseña</label>
-            <input type="password" id="repeticionContraseña" name="repeticionContraseña" onblur="validarRepeticionContraseña()"
-                pattern="(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" title="Repite la contraseña anterior" required>
+            <input type="password" id="repeticionContraseña" name="repeticionContraseña"
+                onblur="validarRepeticionContraseña()" pattern="(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$"
+                title="Repite la contraseña anterior" required>
         </div>
         <br>
-        <div><input type="submit" id="enviar" name="enviar" value="Enviar"></div>
+        <div id="operacion">
+            <label>Operacion</label>
+        </div>
+        <div>
+            <label for="resultado">Resultado</label>
+            <input type="text" id="resultado" name="resultado" pattern="^[0-9]$" onblur="validarCaptcha()">
+        </div>
+        <br>
+        <div>
+            <input type="submit" id="enviar" name="enviar" value="Enviar">
+        </div>
     </form>
     <p id="missatgeError"></p>
 </body>

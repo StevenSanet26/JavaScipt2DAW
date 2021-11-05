@@ -2,7 +2,8 @@ window.onload = iniciar;
 
 function iniciar() {
     document.getElementById("enviar").addEventListener("click", validar, false);
-    
+    crearOperacion();
+
 }
 
 function validar(e) {
@@ -48,7 +49,7 @@ function validarApellidos() {
 }
 
 function validarNIF_NIE() {
-    
+
     var element = document.getElementById("NIF_NIE");
     if (!element.checkValidity()) {
         if (element.validity.valueMissing) {
@@ -63,7 +64,7 @@ function validarNIF_NIE() {
 }
 
 function validarCorreo() {
-  
+
     var element = document.getElementById("correoElectronico");
     if (!element.checkValidity()) {
         if (element.validity.valueMissing) {
@@ -78,7 +79,7 @@ function validarCorreo() {
 }
 
 function validarRepeticionCorreo() {
- 
+
     var element = document.getElementById("repeticionCorreoElectronico");
     var correo = document.getElementById("correoElectronico");
     if (!element.checkValidity()) {
@@ -113,7 +114,7 @@ function validarNickname() {
 }
 
 function validarContraseña() {
-    
+
     var element = document.getElementById("contraseña");
     if (!element.checkValidity()) {
         if (element.validity.valueMissing) {
@@ -124,12 +125,12 @@ function validarContraseña() {
         }
         return false;
     }
-  
+
     return true;
 }
 
 function validarRepeticionContraseña() {
-   
+
     var element = document.getElementById("repeticionContraseña");
     var contraseña = document.getElementById("contraseña");
     if (!element.checkValidity()) {
@@ -160,13 +161,71 @@ function esborrarError() {
         formulari.elements[i].className = "";
     }
 }
-let numero1;
-let numero2;
-let suma="+";
-let resta 
 
-function captcha(){
 
+var numero1 = Math.floor(Math.random() * 10);
+var numero2 = Math.floor(Math.random() * 10);
+var arrayoperacion = ["+", "-"];
+var operador = arrayoperacion[Math.floor(Math.random() * arrayoperacion.length)]
+
+function crearOperacion() {
+
+
+
+    var parrafo1 = document.createElement("a");
+    var contenido1 = document.createTextNode(numero1);
+    parrafo1.appendChild(contenido1);
+    document.getElementById("operacion").appendChild(parrafo1);
+
+
+
+    var parrafo3 = document.createElement("a");
+    var contenido3 = document.createTextNode(operador);
+    parrafo3.appendChild(contenido3);
+    document.getElementById("operacion").appendChild(parrafo3);
+
+
+
+    var parrafo2 = document.createElement("a");
+    var contenido2 = document.createTextNode(numero2);
+    parrafo2.appendChild(contenido2);
+    document.getElementById("operacion").appendChild(parrafo2);
+
+}
+
+
+function validarCaptcha() {
+
+    var element = document.getElementById("resultado");
+    console.log(numero1);
+    console.log(numero2);
+
+    if (!element.checkValidity()) {
+        if (element.validity.valueMissing) {
+            error2(element, "Se requiere el resultado de la operacion.");
+        }
+
+        if (element.validity.patternMismatch) {
+            error2(element, "Solo de admiten numeros");
+        }
+
+        if (operador == "+") {
+            let result = numero1 + numero2;
+            if (result != element) {
+
+                error2(element, "El resultado de la suma no es correcto.");
+            }
+        } else if (operador == "-") {
+            let result = numero1 - numero2;
+            if (result != element) {
+                error2(element, "El resultado de la resta no es correcto.");
+            }
+        }
+        return false;
+    }
+    console.log("correcte");
+
+    return true;
 
 
 }
