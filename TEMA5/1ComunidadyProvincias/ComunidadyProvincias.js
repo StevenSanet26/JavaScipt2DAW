@@ -86,7 +86,7 @@ var comunitats = [{
 
 function mostrarComunitats() {
     comunitats.forEach((element, index) => {
-     
+
         var parrafo = document.createElement("option");
         parrafo.setAttribute("value", index);
         var conteido = document.createTextNode(element.comunitat);
