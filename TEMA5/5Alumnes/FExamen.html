@@ -24,7 +24,7 @@
                 <fieldset>
                     <legend>Estació de ITV</legend>
                     <label>Provincia</label></br>
-                    <input type="radio" id="alc" value="Alacant" name="provincia" required><label>Alacant</label>
+                    <input type="radio" id="alc" value="Alacant" name="provincia"><label>Alacant</label>
                     <input type="radio" id="vlc" value="Valencia" name="provincia"><label>València</label>
                     <input type="radio" id="ctl" value="Castello" name="provincia"><label>Castelló</label>
                     </br><label>Estació ITV</label>
@@ -65,14 +65,17 @@
                 <fieldset>
                     <legend>Dades personals</legend>
                     <label>Nom i Cognom</label>
-                    </br><input type="text" id="nom" size="30" required>
+                    </br><input type="text" id="nom" placeholder="nom apellido" pattern="^[A-Z a-z]+$" size="30"
+                        required>
                     </br><label>telèfon</label>
-                    </br><input type="text" id="telefon" required>
+                    </br><input type="text" id="telefon" placeholder="999 999 999" pattern="^\d{3}\s\d{3}\s\d{3}$"
+                        required>
                     </br><label>Email</label>
-                    </br><input type="text" id="email" required>
+                    </br><input type="text" id="email" placeholder="exemple@exemle.exemple"
+                        pattern="^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$" required>
 
                 </fieldset>
-                <input type="checkbox" id="protecioDades" required><label> he llegit i acepte els Termes i condicions
+                <input type="checkbox" id="protecioDades"><label> he llegit i acepte els Termes i condicions
                     d'aquesta web. </label></br>
 
                 <button class="buEnviar" id="Enviar">Enviar</button>
@@ -84,9 +87,9 @@
         Curs 2020-21 de DAW al ies Enric Valor de Pego
     </footer>
 
-    <!-- Missatge d'error
-   <a href="#miModal">Abrir Modal</a>
-   -->
+
+    <a href="#miModal">Abrir Modal</a>
+
 
     <div id="miModal" class="modal">
         <div class="modal-contenido">

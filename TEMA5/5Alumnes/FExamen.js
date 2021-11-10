@@ -1,56 +1,45 @@
 // inici
 window.onload = inici;
 function inici() {
-    document.getElementById("alc").addEventListener("change", carregarEstacioA, false);
-    document.getElementById("vlc").addEventListener("change", carregarEstacioV, false);
-    document.getElementById("ctl").addEventListener("change", carregarEstacioC, false);
+    document.getElementById("Enviar").addEventListener("click", validar, false);
+    document.getElementById("alc").addEventListener("change", mostrarEstacio, false);
+    document.getElementById("vlc").addEventListener("change", mostrarEstacio, false);
+    document.getElementById("ctl").addEventListener("change", mostrarEstacio, false);
 }
 
-
-
-
-function carregarEstacioA() {
-    let provincia = document.getElementById("alc").value;
-
-    borrarProvincies();
-    estacions[0].estacio.forEach((element, index) => {
-        var parrafo = document.createElement("option");
-
-        parrafo.setAttribute("value", index);
-        var conteido = document.createTextNode(element);
-        parrafo.appendChild(conteido)
-        document.getElementById("estacio").appendChild(parrafo);
-    });
-
+function validar(e) {
+    //esborrarError();
+    if (validarProvincia() && validarNomApellido() && validarTelefon() && validarEmail() && confirm("Confirma si vols enviar el formulari")) {
+        return true;
+    } else {
+        e.preventDefault();
+        return false;
+    }
 }
 
-function carregarEstacioV() {
-    let provincia = document.getElementById("vlc").value;
-    borrarProvincies();
-    estacions[1].estacio.forEach((element, index) => {
-        var parrafo = document.createElement("option");
-        parrafo.setAttribute("value", index);
-        var conteido = document.createTextNode(element);
-        parrafo.appendChild(conteido)
-        document.getElementById("estacio").appendChild(parrafo);
-    });
+//Mostrar Estacio
+function mostrarEstacio() {
+    let provincia = document.getElementsByName("provincia");
 
+    for (let i = 0; i < estacions.length; i++) {
+
+        if (provincia[i].checked) {
+
+            borrarProvincies();
+            estacions[i].estacio.forEach((element, index) => {
+                var parrafo = document.createElement("option");
+
+                parrafo.setAttribute("value", index);
+                var conteido = document.createTextNode(element);
+                parrafo.appendChild(conteido)
+                document.getElementById("estacio").appendChild(parrafo);
+            });
+        }
+    }
 }
-
-function carregarEstacioC() {
-    let provincia = document.getElementById("ctl").value;
-    borrarProvincies();
-    estacions[2].estacio.forEach((element, index) => {
-        var parrafo = document.createElement("option");
-        parrafo.setAttribute("value", index);
-        var conteido = document.createTextNode(element);
-        parrafo.appendChild(conteido)
-        document.getElementById("estacio").appendChild(parrafo);
-    });
-}
-
-
+//Borrar les estacions
 function borrarProvincies() {
+
     let select = document.getElementById("estacio");
 
     for (let i = select.options.length; i >= 0; i--) {
@@ -58,7 +47,18 @@ function borrarProvincies() {
     }
 }
 
+function validarProvincia() {
+    let provincia = document.getElementsByName("provincia");
+    for (let i = 0; i < estacions.length; i++) {
 
+        if (provincia[i].checked) {
+            return true;
+        }
+    }
+    error2(provincia, "Tria una provincia")
+    return false;
+
+}
 
 function validarNomApellido() {
     let element = document.getElementById("nom");
@@ -107,4 +107,11 @@ function validarEmail() {
     return true;
 
 
+}
+
+function error2(element, missatge) {
+    document.getElementById("missatgeError").innerHTML = missatge;
+    document.location.href = "#miModal";
+    /*  element.className = "error";
+      element.focus();*/
 }
