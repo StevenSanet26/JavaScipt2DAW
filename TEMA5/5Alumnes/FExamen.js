@@ -6,11 +6,13 @@ function inici() {
     document.getElementById("alc").addEventListener("change", mostrarEstacio, false);
     document.getElementById("vlc").addEventListener("change", mostrarEstacio, false);
     document.getElementById("ctl").addEventListener("change", mostrarEstacio, false);
+    mostrarHoras();
+
 }
 
 function validar(e) {
     //esborrarError();
-    if (validarProvincia() && validarMatricula() && validarData() && validarCombustible() && validarNomApellido() && validarTelefon() && validarEmail() && confirm("Confirma si vols enviar el formulari")) {
+    if (validarProvincia() && validarMatricula() && validarCombustible() && validarData() && validarHora() && validarNomApellido() && validarTelefon() && validarEmail() && validarCondicion() && confirm("Confirma si vols enviar el formulari")) {
         return true;
     } else {
         e.preventDefault();
@@ -20,6 +22,7 @@ function validar(e) {
 
 //Mostrar Estacio
 function mostrarEstacio() {
+    mostrarHoras();
     let provincia = document.getElementsByName("provincia");
 
     for (let i = 0; i < estacions.length; i++) {
@@ -47,6 +50,7 @@ function borrarEstacio() {
 }
 
 function validarProvincia() {
+
     let provincia = document.getElementsByName("provincia");
     for (let i = 0; i < estacions.length; i++) {
 
@@ -77,6 +81,7 @@ function validarCombustible() {
     let combustible = document.getElementById("conbustible");
 
     for (let index = 1; index < combustible.length; index++) {
+        console.log(combustible[index]);
         if (combustible[index].selected) {
             return true;
         }
@@ -120,6 +125,53 @@ function validarData() {
         return false;
     }
     return true;
+}
+function validarHora() {
+    let hora = document.getElementById("hora");
+
+    for (let i = 1; i < hora.length; i++) {
+        if (hora[i].selected) {
+            return true
+        }
+    }
+    error2(hora, "Selecciona una hora");
+    return false;
+
+}
+
+function mostrarHoras() {
+    let hora = document.getElementById("hora");
+    for (let i = 8; i < 20; i++) {
+
+        for (let j = 0; j < 60; j += 15) {
+            var parrafo = document.createElement("option");
+            if (i <= 9) {
+                parrafo.setAttribute("value", "0" + i + ":" + j);
+                if (j == 0) {
+                    var conteido = document.createTextNode("0" + i + ":0" + j);
+                } else {
+                    var conteido = document.createTextNode("0" + i + ":" + j);
+                }
+
+                parrafo.appendChild(conteido)
+                hora.appendChild(parrafo);
+            } else {
+                parrafo.setAttribute("value", i + ":" + j);
+                if (j == 0) {
+                    var conteido = document.createTextNode(i + ":0" + j);
+                } else {
+                    var conteido = document.createTextNode(i + ":" + j);
+                }
+
+                parrafo.appendChild(conteido)
+                hora.appendChild(parrafo);
+
+            }
+
+        }
+
+    }
+
 }
 
 
@@ -173,6 +225,19 @@ function validarEmail() {
         return false;
     }
     return true;
+
+
+}
+
+function validarCondicion(){
+    let proteccioDades= document.getElementById("protecioDades");
+    console.log(proteccioDades.value);
+    
+    if(proteccioDades){
+        return true;
+    }
+    error2(proteccioDades,"Debes acpetar las condiciones");
+    return false;
 
 
 }
