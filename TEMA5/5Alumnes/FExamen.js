@@ -230,14 +230,16 @@ function validarEmail() {
 }
 
 function validarCondicion(){
-    let proteccioDades= document.getElementById("protecioDades");
-    console.log(proteccioDades.value);
+    var proteccioDades = document.querySelector("input[id='protecioDades']:checked");
     
-    if(proteccioDades){
-        return true;
+    
+    if(!proteccioDades){
+        error2(proteccioDades,"Debes acpetar las condiciones");
+        return false;
+    
     }
-    error2(proteccioDades,"Debes acpetar las condiciones");
-    return false;
+
+    return true;
 
 
 }
