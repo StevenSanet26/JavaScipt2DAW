@@ -2,26 +2,47 @@ $(document).ready(inici);
 var number = 0;
 var acerts = 0;
 var nPreguntes = 0;
+var reset= true;
 
 
 function inici() {
 
 
 
-    $("#iniciar").click(function () {
+    $("#iniciar").click(reload);
+
+
+    function reload() {
+        if (reset== true) {
+            $("#panel").show("slow");
+            carrgerPreguntes();
+            reset= false;
+        }else{
+            reset= true;
+            $("#panel").hide(1500);
+
+            $("#pregunta").empty();
+            $("#respostes").empty();
+
+            number=0;
+            acerts= 0;
+            $("#acerts").html(acerts);
+            nPreguntes=0;
+            $("#total").html(nPreguntes);
+
+            $("#panel").show("slow");
+            reload();
+        }
+    }
+
+  
 
 
 
 
-        $("#panel").show("slow");
-    });
 
 
-
-
-
-    carrgerPreguntes();
-
+   
 
 }
 
