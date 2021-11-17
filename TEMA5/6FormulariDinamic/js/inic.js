@@ -9,18 +9,18 @@ function inici() {
 function siguiente(e) {
     esborrarError();
     if (validarNom() && validarEmail() && validarTelefon() && confirm("Confirma si vols enviar el formulari")) {
-        let element = document.getElementById("nombre");
+        let nombre = document.getElementById("nombre");
+        let email = document.getElementById("email");
+        let telefono = document.getElementById("telefono");
 
         let usuari = {
-            "nom": element.value
+            "nom": nombre.value,
+            "correo": email.value,
+            "telefono": telefono.value
         }
         let arrayPedido = new Array();
 
-        //OBTINDRE DE LOCALSTORAGE
-        /*
-        if (JSON.parse(localStorage.getItem("Pedido")) != null) {
-            arrayPedido = JSON.parse(localStorage.getItem("Pedido"));
-        }*/
+
 
         arrayPedido.push(usuari);
         localStorage.setItem("Pedido", JSON.stringify(arrayPedido));
@@ -78,6 +78,7 @@ function validarTelefon() {
             error2(element, "Telefon format incorrect");
             return false;
         }
+
     }
     return true;
 
