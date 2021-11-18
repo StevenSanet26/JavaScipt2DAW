@@ -1,7 +1,7 @@
 window.onload = iniciar;
 
-var precioTotal = 0;
-var number = 0;
+
+
 var precioSumado = 0;
 
 function iniciar() {
@@ -10,19 +10,30 @@ function iniciar() {
         number = JSON.parse(localStorage.getItem("Contador"));
 
     }
-    if (number > 4) {
-        window.location.href = "FDConfirmar.html";
-        console.log("entra");
 
-    }
-    if (JSON.parse(localStorage.getItem("Total")) != null) {
-        precioTotal = JSON.parse(localStorage.getItem("Total"));
+    let arrayPedido = new Array();
 
+    //OBTINDRE DE LOCALSTORAGE
+    if (JSON.parse(localStorage.getItem("Pedido")) != null) {
+        arrayPedido = JSON.parse(localStorage.getItem("Pedido"));
     }
+    precioTotal = arrayPedido[0].total;
+
+    console.log(precioTotal);
+
+
+
+    /*
+        if (number > 4) {
+            window.location.href = "FDConfirmar.html";
+            console.log("entra");
+        }
+      */
+
+
     let total = document.getElementById("total");
     total.innerHTML = precioTotal + "€";
 
-    console.log(number);
     mostrarNombre();
     document.getElementById("siguiente").addEventListener("click", seguent);
     document.getElementById("talla").addEventListener("change", SeleccioTalla);
@@ -42,11 +53,13 @@ function mostrarNombre() {
     let nomApellido = document.getElementById("nombreApellidos");
 
     let contenido = document.createTextNode(arrayPedido[0].nom);
+    console.log(arrayPedido[0].nom);
 
     nomApellido.appendChild(contenido);
 }
 
 function mostrarPedidos() {
+    /*
     let arrayPedido = new Array();
 
     //OBTINDRE DE LOCALSTORAGE
@@ -55,7 +68,7 @@ function mostrarPedidos() {
         console.log(arrayPedido[arrayPedido.length - 1].contador);
         number = arrayPedido[arrayPedido.length - 1].contador;
 
-    }
+    }*/
 
 
     let prenda = document.getElementById("nombreArticulo");
@@ -140,11 +153,13 @@ function seguent() {
     }
 
     number++;
-    let contador = {
-        "contador": number
-    }
-    arrayPedido.push(contador);
-    localStorage.setItem("Pedido", JSON.stringify(arrayPedido));
+
+
+
+    localStorage.setItem("Contador", JSON.stringify(number));
+
+
+
 
 
 

@@ -5,6 +5,8 @@ window.onload = inici;
 function inici() {
     document.getElementById("siguiente").addEventListener("click", siguiente);
 }
+var number = 0;
+var precioTotal = 0;
 
 function siguiente(e) {
     esborrarError();
@@ -16,14 +18,19 @@ function siguiente(e) {
         let usuari = {
             "nom": nombre.value,
             "correo": email.value,
-            "telefono": telefono.value
+            "telefono": telefono.value,
+            "producte": [],
+            "total": precioTotal
         }
         let arrayPedido = new Array();
 
 
 
         arrayPedido.push(usuari);
+
+        localStorage.setItem("Contador", JSON.stringify(number));
         localStorage.setItem("Pedido", JSON.stringify(arrayPedido));
+
 
 
         return true;
