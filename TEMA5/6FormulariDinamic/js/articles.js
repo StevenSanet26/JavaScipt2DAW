@@ -58,17 +58,6 @@ function mostrarNombre() {
 }
 
 function mostrarPedidos() {
-    /*
-    let arrayPedido = new Array();
-
-    //OBTINDRE DE LOCALSTORAGE
-    if (JSON.parse(localStorage.getItem("Pedido")) != null) {
-        arrayPedido = JSON.parse(localStorage.getItem("Pedido"));
-        console.log(arrayPedido[arrayPedido.length - 1].contador);
-        number = arrayPedido[arrayPedido.length - 1].contador;
-
-    }*/
-
 
     let prenda = document.getElementById("nombreArticulo");
     prenda.setAttribute("value", pedido[number].nombreArticulo);
