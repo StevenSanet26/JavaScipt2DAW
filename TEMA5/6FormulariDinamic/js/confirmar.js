@@ -1,9 +1,7 @@
-window.onload.iniciar;
+window.onload = iniciar;
 
 function iniciar() {
     cargarProductos()
-
-
 }
 
 
@@ -15,12 +13,84 @@ function cargarProductos() {
     if (JSON.parse(localStorage.getItem("Pedido")) != null) {
         arrayPedido = JSON.parse(localStorage.getItem("Pedido"));
     }
+    let nombreApellido = document.getElementById("nombreApellidos");
+    let contenido = document.createTextNode(arrayPedido[0].nom);
+    nombreApellido.appendChild(contenido);
 
-    array.forEach(element => {
-        let div1 = document.createElement("div");
-        div1.setAttribute("",)
+    let articulos = document.getElementById("articulos");
+
+    console.log();
+    for (let i = 0; i < arrayPedido[0].producte.length; i++) {
 
 
-    });
 
+        arrayPedido[0].producte[i].forEach(element => {
+            let div1 = document.createElement("div");
+            div1.setAttribute("class", "card mt-2");
+            div1.setAttribute("style", "width: 25rem;");
+
+            let h5 = document.createElement("h5");
+            h5.setAttribute("class", "card-header");
+            let prenda = document.createTextNode();
+            h5.appendChild(prenda);
+
+            let div2 = document.createElement("div");
+            div2.setAttribute("class", "card-body");
+
+            let div3 = document.createElement("div");
+            div3.setAttribute("class", "row");
+
+
+
+            let div4 = document.createElement("div");
+            div4.setAttribute("class", "col");
+
+            let h3 = document.createElement("h3");
+            h3.setAttribute("class", "card-title");
+            let precio = document.createTextNode();
+            h3.appendChild(precio);
+
+            let p = document.createElement("p");
+            p.setAttribute("class", "card-text");
+            let talla = document.createTextNode();
+            p.appendChild(talla);
+
+            let a = document.createElement("a");
+            a.setAttribute("href", "#");
+            a.setAttribute("class", "btn btn-primary text-end");
+            let i = document.createElement("i");
+            i.setAttribute("class", "fa fa-trash-o");
+            i.setAttribute("aria-hidden", "true");
+            a.appendChild(i);
+
+            div4.appendChild(h3);
+            div4.appendChild(p);
+            div4.appendChild(a);
+
+
+
+
+            let div5 = document.createElement("div");
+            div5.setAttribute("class", "col");
+
+            let img = document.createElement("img");
+            let foto;
+            img.setAttribute("src", "./img/" + foto);
+            img.setAttribute("class", "img-fluid img-thumbnail");
+            div5.appendChild(img);
+
+
+            div3.appendChild(div4);
+            div3.appendChild(div5);
+
+            div2.appendChild(div3);
+
+            div1.appendChild(h5);
+            div1.appendChild(div2);
+
+            articulos.appendChild(dvi1);
+
+
+        });
+    }
 }
