@@ -1,14 +1,53 @@
 window.onload = iniciar;
 
 function iniciar() {
-    cargarProductos();
-    cargarTotal();
-    document.querySelector("a").addEventListener("click",borrar);
   
+    cargarProductos();
+    //cargarTotal();   
+    borrar();
 }
+
 function borrar(){
-    let a=document.querySelector("a");
-    console.log(a);
+
+
+
+    const botons = document.querySelectorAll(".btn.btn-primary.text-end");
+
+    const clicando = function(click){
+        let arrayPedido = new Array();
+
+        //OBTINDRE DE LOCALSTORAGE
+        if (JSON.parse(localStorage.getItem("Pedido")) != null) {
+            arrayPedido = JSON.parse(localStorage.getItem("Pedido"));
+        }
+
+        let precioTot=arrayPedido[0].total;
+
+      
+
+
+      
+        let resta= arrayPedido[0].producte[this.id].precio;
+       
+        
+        precioTot=precioTot-resta;
+       
+
+    
+        arrayPedido[0].precio=precioTot;
+
+        arrayPedido[0].producte.splice(this.id,1);
+   
+        localStorage.setItem("Pedido", JSON.stringify(arrayPedido));
+     
+        location.reload();
+    }
+
+
+    botons.forEach(boto=>{
+        boto.addEventListener("click",clicando);
+        
+    })
 }
 
 
@@ -35,6 +74,7 @@ function cargarProductos() {
             if (element.prenda == pedido[x].nombreArticulo) {
                 
                 let div1 = document.createElement("div");
+                div1.setAttribute("id","p"+x);
                 div1.setAttribute("class", "card mt-2");
                 div1.setAttribute("style", "width: 25rem;");
 
@@ -65,6 +105,7 @@ function cargarProductos() {
                 p.appendChild(talla);
 
                 let a = document.createElement("a");
+                a.setAttribute("id",x);
                 a.setAttribute("href","#");
                 a.setAttribute("class", "btn btn-primary text-end");
                 let i = document.createElement("i");
@@ -104,7 +145,20 @@ function cargarProductos() {
 
     });
 
+    let sumando=0;
+    arrayPedido[0].producte.forEach(element => {
+        sumando+=element.precio;
+
+    });
+
+    let contenido1=document.createTextNode(sumando+"€");
+    let total=document.getElementById("total");
+    total.appendChild(contenido1);
+
+
+
 }
+/*
 function cargarTotal(){
     let arrayPedido = new Array();
 
@@ -122,4 +176,4 @@ function cargarTotal(){
     let contenido=document.createTextNode(sumando+"€");
     let total=document.getElementById("total");
     total.appendChild(contenido);
-}
+}*/
