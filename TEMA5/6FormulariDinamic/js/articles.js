@@ -6,9 +6,15 @@ var precioSumado = 0;
 
 function iniciar() {
 
+
+
     if (JSON.parse(localStorage.getItem("Contador")) != null) {
         number = JSON.parse(localStorage.getItem("Contador"));
 
+    }
+    if (number > 4) {
+        window.location.href = "FDConfirmar.html";
+        console.log("entra");
     }
 
     let arrayPedido = new Array();
@@ -23,22 +29,15 @@ function iniciar() {
 
 
 
-    /*
-        if (number > 4) {
-            window.location.href = "FDConfirmar.html";
-            console.log("entra");
-        }
-      */
-
-
     let total = document.getElementById("total");
     total.innerHTML = precioTotal + "€";
 
     mostrarNombre();
-    document.getElementById("siguiente").addEventListener("click", seguent);
-    document.getElementById("talla").addEventListener("change", SeleccioTalla);
-
     mostrarPedidos();
+
+    document.getElementById("talla").addEventListener("change", SeleccioTalla);
+    document.getElementById("siguiente").addEventListener("click", seguent);
+
 
 }
 
@@ -103,7 +102,7 @@ function SeleccioTalla() {
 
     if (talla.value != "Talla") {
         precioSumado = pedido[number].precioArticulo;
-        total.innerHTML = (pedido[number].precioArticulo + precioTotal) + "€";
+        total.innerHTML = (precioSumado + precioTotal) + "€";
 
     } else {
         total.innerHTML = precioTotal + "€";
@@ -114,58 +113,37 @@ function SeleccioTalla() {
 
 
 function seguent() {
+   
+    let talla = document.getElementById("talla");
 
-
-    arrayProducto = new Array();
     arrayPedido = new Array();
     if (JSON.parse(localStorage.getItem("Pedido")) != null) {
         arrayPedido = JSON.parse(localStorage.getItem("Pedido"));
 
     }
 
-    if (JSON.parse(localStorage.getItem("Producto")) != null) {
-        arrayProducto = JSON.parse(localStorage.getItem("Producto"));
-
-    }
     if (talla.value != "Talla") {
-
-
         let producto = {
             "prenda": pedido[number].nombreArticulo,
             "precio": pedido[number].precioArticulo,
             "talla": talla.value
+
         }
+
+        arrayPedido[0].producte.push(producto);
 
         precioTotal = precioTotal + precioSumado;
-        let totalPrice = {
-            "precioTotal": precioTotal
-        }
+        arrayPedido[0].total = precioTotal;
 
-        arrayPedido.push(producto);
-        arrayPedido.push(totalPrice);
-        arrayProducto.push(producto);
-
-        localStorage.setItem("Producto", JSON.stringify(arrayProducto));
-
-        localStorage.setItem("Total", JSON.stringify(precioTotal));
         localStorage.setItem("Pedido", JSON.stringify(arrayPedido));
 
     }
-
-    number++;
-
-
-
-    localStorage.setItem("Contador", JSON.stringify(number));
-
-
-
-
-
-
-
-
-    if (number > 4) {
+    if (number == 4) {
         window.location.href = "FDConfirmar.html";
     }
+
+    number++;
+    localStorage.setItem("Contador", JSON.stringify(number));
+
+  
 }
