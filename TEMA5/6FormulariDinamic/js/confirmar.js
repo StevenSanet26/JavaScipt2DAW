@@ -9,8 +9,6 @@ function iniciar() {
 
 function borrar(){
 
-
-
     const botons = document.querySelectorAll(".btn.btn-primary.text-end");
 
     const clicando = function(click){
@@ -24,16 +22,11 @@ function borrar(){
         let precioTot=arrayPedido[0].total;
 
       
-
-
-      
         let resta= arrayPedido[0].producte[this.id].precio;
        
         
         precioTot=precioTot-resta;
-       
-
-    
+           
         arrayPedido[0].precio=precioTot;
 
         arrayPedido[0].producte.splice(this.id,1);

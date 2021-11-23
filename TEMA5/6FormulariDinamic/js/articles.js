@@ -3,45 +3,38 @@ window.onload = iniciar;
 
 
 var precioSumado = 0;
+var number = 0;
 
 function iniciar() {
-
-
-
+    document.getElementById("talla").addEventListener("change", SeleccioTalla);
+    document.getElementById("siguiente").addEventListener("click", seguent);
+    /*
     if (JSON.parse(localStorage.getItem("Contador")) != null) {
         number = JSON.parse(localStorage.getItem("Contador"));
 
-    }
+    }*/
+
     if (number > 4) {
+        console.log("olga");
+
         window.location.href = "FDConfirmar.html";
-        console.log("entra");
     }
-
-    let arrayPedido = new Array();
-
-    //OBTINDRE DE LOCALSTORAGE
-    if (JSON.parse(localStorage.getItem("Pedido")) != null) {
-        arrayPedido = JSON.parse(localStorage.getItem("Pedido"));
-    }
-    precioTotal = arrayPedido[0].total;
-
-    console.log(precioTotal);
-
-
-
-    let total = document.getElementById("total");
-    total.innerHTML = precioTotal + "€";
 
     mostrarNombre();
     mostrarPedidos();
-
-    document.getElementById("talla").addEventListener("change", SeleccioTalla);
-    document.getElementById("siguiente").addEventListener("click", seguent);
+    mostrarPrecioTotal();
+    cargarImagen();
 
 
 }
+function borrar() {
+    let nomApellido = document.getElementById("nombreApellidos");
+    nomApellido.firstChild.removeChild(nomApellido);
+}
 
 function mostrarNombre() {
+
+
     let arrayPedido = new Array();
 
     //OBTINDRE DE LOCALSTORAGE
@@ -49,15 +42,19 @@ function mostrarNombre() {
         arrayPedido = JSON.parse(localStorage.getItem("Pedido"));
     }
 
+    borrar();
     let nomApellido = document.getElementById("nombreApellidos");
 
     let contenido = document.createTextNode(arrayPedido[0].nom);
     console.log(arrayPedido[0].nom);
 
     nomApellido.appendChild(contenido);
+
 }
 
 function mostrarPedidos() {
+
+
 
     let prenda = document.getElementById("nombreArticulo");
     prenda.setAttribute("value", pedido[number].nombreArticulo);
@@ -75,10 +72,31 @@ function mostrarPedidos() {
         talla.appendChild(parrafo);
     });
 
+
+
+
+}
+
+function cargarImagen() {
     let imagen = document.getElementById("imagen");
     imagen.setAttribute("src", "img/" + pedido[number].imagen);
+}
+
+function mostrarPrecioTotal() {
+    let arrayPedido = new Array();
+
+    //OBTINDRE DE LOCALSTORAGE
+    if (JSON.parse(localStorage.getItem("Pedido")) != null) {
+        arrayPedido = JSON.parse(localStorage.getItem("Pedido"));
+    }
+    precioTotal = arrayPedido[0].total;
+
+    console.log(precioTotal);
 
 
+
+    let total = document.getElementById("total");
+    total.innerHTML = precioTotal + "€";
 }
 
 function SeleccioTalla() {
@@ -101,8 +119,10 @@ function SeleccioTalla() {
 
 
 
-function seguent() {
-   
+function seguent(e) {
+    e.preventDefault();
+
+
     let talla = document.getElementById("talla");
 
     arrayPedido = new Array();
@@ -127,12 +147,10 @@ function seguent() {
         localStorage.setItem("Pedido", JSON.stringify(arrayPedido));
 
     }
-    if (number == 4) {
-        window.location.href = "FDConfirmar.html";
-    }
+
 
     number++;
     localStorage.setItem("Contador", JSON.stringify(number));
+    iniciar();
 
-  
 }
