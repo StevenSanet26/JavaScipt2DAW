@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            //console.log(this.readyState, this.status);
+
+            //tot correcte
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+                let objeto = JSON.parse(this.responseText);
+                //console.log(objeto);
+                objeto.forEach(element => {
+                    console.log(element.name);
+                    console.log(element.image);
+                });
+
+            }
+        }
+
+        xmlhttp.open("GET", "http://localhost:3005/people", true);
+        xmlhttp.send();
+
+
+    </script>
+</head>
+
+<body>
+    <div id="datos"></div>
+</body>
+
+</html>

@@ -3,7 +3,11 @@ let arrPoke = new Array;
 
 window.onload = main;
 let ele = 0;
-
+/*
+let paginacion=20;
+let pagInicio = 0;
+let pagFinal = 0;
+*/
 function main() {
 
   //console.log("Conttol Scrool", document.body.scrollHeight - window.innerHeight, window.scrollY);
@@ -14,20 +18,19 @@ function main() {
 
 
 
-
+/*
     console.log("Conttol Scrool", document.body.scrollHeight - window.innerHeight, window.scrollY);
-    let top = (document.body.scrollHeight - window.innerHeight)-100;
+    let top = (document.body.scrollHeight - window.innerHeight) - 100;
     console.log("top", top);
     console.log("scroll", window.scrollY);
     let Altura = window.scrollY
+*/
 
-
-    if (Altura == top) {
+    if (window.scrollY == document.body.scrollHeight - window.innerHeight) {
       cargarLista()
     }
 
-  })
-
+  });
 
   // cridar al api 
   fetch('https://pokeapi.co/api/v2/pokemon?limit=1100&offset=0')
