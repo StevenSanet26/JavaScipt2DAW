@@ -1,28 +1,51 @@
 window.onload = main;
 
-let arrayAlacant = new Array;
+var arrayPoblacions = new Array;
 
 function main() {
-    /*
-    fetch("https://apiv1.geoapi.es/municipios?CPRO=03&type=JSON&key=&sandbox=1")
-    .then(response=>response.json())
-    .then(data=> {
-    arrayAlacant = data.
-    })
-    */
+    document.getElementById("cargarPoblacions").addEventListener("click", carregar);
+    autocomplete();
+}
 
-    xmlhttp = new XMLHttpRequest();
+function carregar() {
+
+    for (let i = arrayPoblacions.length; i > 0; i--) {
+        arrayPoblacions.pop();
+    }
+    carregarPoblacions("03");
+    carregarPoblacions("12");
+    carregarPoblacions("46");
+}
+
+function carregarPoblacions(codiPostal) {
+    let xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             //document.getElementById("encuesta").innerHTML = this.responseText;
-            //console.log(this.responseText);
-            arrayAlacant = this.responseText;
-            console.log(arrayAlacant);
+            poblacions = JSON.parse(this.responseText);
+            poblacions.data.forEach(element => {
+                arrayPoblacions.push(element.DMUN50);
+            });
+            console.log(arrayPoblacions);
+            document.getElementById("text").innerText = "S'ha carregat " + arrayPoblacions.length + " poblacions";
         }
     }
-    xmlhttp.open("GET", "https://apiv1.geoapi.es/municipios?CPRO=03&type=JSON&key=&sandbox=1", true);
+   
+    xmlhttp.open("GET", "https://apiv1.geoapi.es/municipios?CPRO=" + codiPostal + "&type=JSON&key=&sandbox=1", true);
     xmlhttp.send();
+  
 
-    
 
 }
+function autocomplete() {
+    $("#tags").autocomplete({
+        source: arrayPoblacions
+    });
+}
+
+
+
+
+
+
+
