@@ -1,7 +1,13 @@
 window.onload = main;
-function main() {
-    cargarLlibre();
 
+let arrayAutores= new Array();
+function main() {
+    cargarAutor();
+    
+    
+    
+    
+    
 }
 
 function cargarLlibre() {
@@ -9,13 +15,26 @@ function cargarLlibre() {
     fetch("https://www.serverred.es/api/libros")
         .then(response => response.json())
         .then(data => {
-            mostrarAutores(data);
+            mostrarLibros(data);
         });
     //.catch((error)=>console.log(error));    
 }
 
 
-function mostrarAutores(libros) {
+function cargarAutor() {
+
+    fetch("https://www.serverred.es/api/autores")
+        .then(response => response.json())
+        .then(data => {
+            arrayAutores=data.resultado;
+            console.log(arrayAutores);
+            cargarLlibre();
+        });
+    //.catch((error)=>console.log(error));    
+}
+
+
+function mostrarLibros(libros) {
     // console.log(autores.resultado[0]);
 
     libros.resultado.forEach((element, index) => {
@@ -53,7 +72,8 @@ function mostrarAutores(libros) {
         td5.appendChild(contenido5);
 
         let td6 = document.createElement("td");
-        let contenido6 = document.createTextNode(element.autor);
+        let contenido6 = document.createTextNode(obtenerAutor(element.autor));
+        
         td6.appendChild(contenido6);
 
 
@@ -81,4 +101,17 @@ function modificarLlibre(element) {
     console.log(element.id);
 
     window.location.href = "modificarLlibres.html?id=" + element.id;
+}
+
+function obtenerAutor(id){
+    let auxId="borrado";
+    arrayAutores.forEach(element => {
+        if(element._id==id){
+        
+            
+            auxId= element.nombre;
+        }
+    });
+    return auxId;
+
 }

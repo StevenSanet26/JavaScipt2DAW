@@ -4,6 +4,7 @@ window.onload=main;
 
 function main(){
     cargarAutors();
+    document.getElementById("nouAutor").addEventListener("click",nouAutor);
 
 }
 
@@ -57,4 +58,9 @@ function mostrarAutores(autores){
         
     });
     
+}
+
+
+function nouAutor(){
+    window.location.href = "altaAutors.html";
 }
