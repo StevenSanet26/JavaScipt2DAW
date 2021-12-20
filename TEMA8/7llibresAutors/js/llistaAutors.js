@@ -20,7 +20,7 @@ function cargarAutors(){
 
 
 function mostrarAutores(autores){
-    console.log(autores.resultado[0]);
+   
     
     autores.resultado.forEach((element,index) => {
         let tr = document.createElement("tr");

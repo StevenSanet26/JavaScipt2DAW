@@ -3,7 +3,7 @@ window.onload = main;
 let arrayAutores= new Array();
 function main() {
     cargarAutor();
-    
+    document.getElementById("nouLlibre").addEventListener("click",noullibre);
     
     
     
@@ -90,6 +90,10 @@ function mostrarLibros(libros) {
 
     });
 
+}
+
+function noullibre(){
+    window.location.href= "altaLlibres.html";
 }
 
 function esborrarLlibre(element) {
