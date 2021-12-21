@@ -1,47 +1,82 @@
-window.onload = main;
+window.onload=main;
 
-function main() {
-    document.getElementById("btnGravar").addEventListener("click", gravar);
+function main(){
    
-    
-    
+    cargarAutor();
+
+    document.getElementById("btnGravar").addEventListener("click",gravar);
+}
+
+function cargarAutor(){
+
+    var queryString=window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    var id= urlParams.get("id");
+
+
+    fetch("https://serverred.es/api/autores/"+id)
+    .then(response=>response.json())
+    .then(data=>{
+        mostrarAutor(data);
+       // document.getElementById("btnGravar").addEventListener("click",gravar);
+    })
+    .catch((error) =>console.error( error));
+}
+
+function mostrarAutor(data){
+    console.log(data);
+    let nom= document.getElementById("nom");
+    nom.setAttribute("value",data.resultado.nombre);
+
+    let anynaix = document.getElementById("anynaix");
+    anynaix.setAttribute("value",data.resultado.año_nacimiento);
+
 }
 
 
-
-function gravar(e) {
+function gravar(e){
+   
     esborrarError();
-    if (validarNom() && validarAnyNaixement() && confirm("confirma si vols donar de alt a este Autor")) {
-        
-        let nom= document.getElementById("nom").value;
-
-        var anynaix = document.getElementById("anynaix").value;       
+    
+    if (validarNom() && validarAnyNaixement() && confirm("confirma si vols modficar este Autor")) {
+        debugger;
+        var anynaix = document.getElementById("anynaix").value;    
+        let nom = document.getElementById("nom").value;  
+        console.log(anynaix);
+        console.log(nom);
 
         let autor = {
             "nombre": nom,
             "año_nacimiento": anynaix
         }
+        var queryString=window.location.search;
+        var urlParams = new URLSearchParams(queryString);
+        var id= urlParams.get("id");
 
-        fetch("https://www.serverred.es/api/autores",{
-            method:"POST",
+        fetch("https://serverred.es/api/autores/"+id,{
+            method:"PUT",
             headers: {
                 "Content-Type": "application/json"
             },
             body:JSON.stringify(autor)
-        }).then(response => response.json())
+        })
+        .then(response => response.json())
         .then(data => {
-            
-        });
+            console.log('Success:', data);
+        })
+        .catch((error) =>{
+            console.error('Error:', error);
 
-        return true;
+        });
+        window.location.href = "llistatAutors.html";
+        
+        
     }else{
     e.preventDefault();
     return false;
     }
+
 }
-
-
-
 
 function validarNom() {
     let element = document.getElementById("nom");
@@ -100,3 +135,6 @@ function error2(element, missatge) {
     element.className = "error";
     element.focus();
 }
+
+
+

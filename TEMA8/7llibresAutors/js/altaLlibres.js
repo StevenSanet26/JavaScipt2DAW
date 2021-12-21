@@ -1,11 +1,15 @@
 window.onload = main;
 
+
+
 function main() {
     document.getElementById("btnGravar").addEventListener("click", gravar);
     cargarAutores();
+
    
-    console.log(autor);
-    
+
+
+
 }
 
 
@@ -17,8 +21,9 @@ function cargarAutores() {
         });
 }
 
+
 function mostrarAutores(autores) {
-   
+
 
     autores.resultado.forEach((element, index) => {
         let option = document.createElement("option");
@@ -26,14 +31,17 @@ function mostrarAutores(autores) {
 
         let contenido = document.createTextNode(element.nombre);
         option.appendChild(contenido);
+        option.setAttribute("value",element._id);
 
 
         document.getElementById("autor").appendChild(option);
 
 
+
     });
 
 }
+
 
 
 function gravar(e) {
@@ -42,28 +50,26 @@ function gravar(e) {
         let titol = document.getElementById("titol").value;
         let editorial = document.getElementById("editorial").value;
         let preu = document.getElementById("preu").value;
-        let autor;
-        let autores = document.getElementById("autor");
-        autores.addEventListener("change",function(){
-           autor=autores.value;
-        });
+        let autor = document.getElementById("autor").value;
+
+      
         let llibre = {
-            "titulo":titol,
-            "editorial":editorial,
-            "precio":preu,
-            "autor":autor
+            "titulo": titol,
+            "editorial": editorial,
+            "precio": preu,
+            "autor": autor
         }
 
-        fetch("https://www.serverred.es/api/libros",{
-            method:"POST",
-            headers:{
-                "Content-type":"application/json"
+        fetch("https://www.serverred.es/api/libros", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
             },
-            body:JSON.stringify(llibre)
-        }).then(response=>response.json())
-        .then(data=>{
+            body: JSON.stringify(llibre)
+        }).then(response => response.json())
+            .then(data => {
 
-        });
+            });
         return true;
 
 

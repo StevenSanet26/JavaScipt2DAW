@@ -98,6 +98,14 @@ function noullibre(){
     window.location.href= "altaLlibres.html";
 }
 
+function modificarLlibre(element) {
+    console.log(element.id);
+    id=element.id;
+    window.location.href = "modificarLlibres.html?id=" + element.id;
+
+  
+}
+
 function esborrarLlibre(element) {
     console.log(element.id);
     fetch("https://serverred.es/api/libros/"+element.id,{
@@ -109,13 +117,18 @@ function esborrarLlibre(element) {
 
 function obtenerAutor(id){
     let auxId="borrado";
+  
+    console.log("este "+id);
+ 
     arrayAutores.forEach(element => {
-        if(element._id==id){
+        console.log(element._id);
         
-            
+        if(element._id==id){
+      
             auxId= element.nombre;
+            
         }
     });
+    
     return auxId;
-
 }
