@@ -29,10 +29,9 @@ function cargarAutor() {
         .then(response => response.json())
         .then(data => {
             arrayAutores=data.resultado;
-            console.log(arrayAutores);
             cargarLlibre();
         });
-    //.catch((error)=>console.log(error));    
+    
 }
 
 
