@@ -1,5 +1,7 @@
 window.onload = main;
 
+var id;
+
 let arrayAutores= new Array();
 function main() {
     cargarAutor();
@@ -43,7 +45,7 @@ function mostrarLibros(libros) {
         let td1 = document.createElement("td");
         let esborrar = document.createElement("button");
         esborrar.setAttribute("class", "btn btn-primary btn-lg my-3");
-        esborrar.setAttribute("id", "eliminar" + index);
+        esborrar.setAttribute("id", element._id);
         esborrar.setAttribute("onclick", "esborrarLlibre(this)");
         let contenido1 = document.createTextNode("Esborrar");
         esborrar.appendChild(contenido1);
@@ -53,7 +55,7 @@ function mostrarLibros(libros) {
         let td2 = document.createElement("td");
         let modificar = document.createElement("button");
         modificar.setAttribute("class", "btn btn-primary btn-lg my-3");
-        modificar.setAttribute("id", "modificar" + index);
+        modificar.setAttribute("id", element._id);
         modificar.setAttribute("onclick", "modificarLlibre(this)");
         let contenido2 = document.createTextNode("Modificar");
         modificar.appendChild(contenido2);
@@ -98,14 +100,12 @@ function noullibre(){
 
 function esborrarLlibre(element) {
     console.log(element.id);
-
+    fetch("https://serverred.es/api/libros/"+element.id,{
+        method:"DELETE"
+    }).then(response=>response.json())
+    .then(data=> console.log(data));
 }
 
-function modificarLlibre(element) {
-    console.log(element.id);
-
-    window.location.href = "modificarLlibres.html?id=" + element.id;
-}
 
 function obtenerAutor(id){
     let auxId="borrado";

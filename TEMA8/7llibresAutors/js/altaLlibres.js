@@ -3,62 +3,68 @@ window.onload = main;
 function main() {
     document.getElementById("btnGravar").addEventListener("click", gravar);
     cargarAutores();
+   
+    console.log(autor);
+    
 }
 
 
-function cargarAutores(){
+function cargarAutores() {
     fetch("https://www.serverred.es/api/autores")
-    .then(response=>response.json())
-    .then(data=>{
-        mostrarAutores(data);
-    });
+        .then(response => response.json())
+        .then(data => {
+            mostrarAutores(data);
+        });
 }
 
-function mostrarAutores(autores){
-    console.log(autores.resultado[0]);
-    
-    autores.resultado.forEach((element,index) => {
-        let tr = document.createElement("tr");
-        let td1= document.createElement("td");
-        let esborrar = document.createElement("button");
-        esborrar.setAttribute("class", "btn btn-primary btn-lg my-3");
-        let contenido1= document.createTextNode("Esborrar");
-        esborrar.appendChild(contenido1);
-        td1.appendChild(esborrar);
+function mostrarAutores(autores) {
+   
+
+    autores.resultado.forEach((element, index) => {
+        let option = document.createElement("option");
 
 
-        let td2= document.createElement("td");
-        let modificar = document.createElement("button");
-        modificar.setAttribute("class", "btn btn-primary btn-lg my-3");
-        let contenido2= document.createTextNode("Modificar");
-        modificar.appendChild(contenido2);
-        td2.appendChild(modificar);
+        let contenido = document.createTextNode(element.nombre);
+        option.appendChild(contenido);
 
-        let td3= document.createElement("td");
-        let contenido3= document.createTextNode(element.nombre);
-        td3.appendChild(contenido3);
 
-        let td4= document.createElement("td");
-        let contenido4= document.createTextNode(element.año_nacimiento);
-        td4.appendChild(contenido4);
-        
+        document.getElementById("autor").appendChild(option);
 
-        tr.appendChild(td1);
-        tr.appendChild(td2);
-        tr.appendChild(td3);
-        tr.appendChild(td4);
 
-        document.getElementById("taula").appendChild(tr);
-        
-        
     });
-    
+
 }
 
 
 function gravar(e) {
     esborrarError();
     if (validarTitol() && validarEditorial() && validarPreu() && validarAutor() && confirm("alta llibre")) {
+        let titol = document.getElementById("titol").value;
+        let editorial = document.getElementById("editorial").value;
+        let preu = document.getElementById("preu").value;
+        let autor;
+        let autores = document.getElementById("autor");
+        autores.addEventListener("change",function(){
+           autor=autores.value;
+        });
+        let llibre = {
+            "titulo":titol,
+            "editorial":editorial,
+            "precio":preu,
+            "autor":autor
+        }
+
+        fetch("https://www.serverred.es/api/libros",{
+            method:"POST",
+            headers:{
+                "Content-type":"application/json"
+            },
+            body:JSON.stringify(llibre)
+        }).then(response=>response.json())
+        .then(data=>{
+
+        });
+        return true;
 
 
     } else {

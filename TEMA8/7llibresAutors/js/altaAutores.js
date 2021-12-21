@@ -30,13 +30,14 @@ function gravar(e) {
             body:JSON.stringify(autor)
         }).then(response => response.json())
         .then(data => {
-            mostrarLibros(data);
+            
         });
 
         return true;
-    }
+    }else{
     e.preventDefault();
     return false;
+    }
 }
 
 
