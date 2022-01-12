@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <title>Menu APP</title>
+    <script src="js/registrer.js"></script>
 </head>
 <body>
     <header>
@@ -66,21 +67,21 @@
         <form>
           <div class="form-group">
             <label for="nom">Nom</label>
-            <input type="text" class="form-control" id="nom" name="nom" placeholder="Introduir nom">
+            <input type="text" class="form-control" id="nom" name="nom" placeholder="Introduir nom"  pattern="^[A-z]{3,15}$" required>
           </div>
           <div class="form-group">
             <label for="email">Correu electrònic</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Introduir email" >
+            <input type="email" class="form-control" id="email" name="email" placeholder="Introduir email" pattern="^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$" required>
           </div>
           <div class="form-group">
             <div class="row">
               <div class="col">
                 <label for="password">Contrasenya</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Contrasenya" >
+                <input type="password" class="form-control" id="password" name="password" placeholder="Contrasenya" required>
               </div>
               <div class="col">
                 <label for="passwordc">Repetir contrasenya</label>
-                <input type="password" class="form-control" id="passwordc" name="passwordc" placeholder=" Repetir contrasenya">
+                <input type="password" class="form-control" id="passwordc" name="passwordc" placeholder=" Repetir contrasenya" required>
               </div>
             </div>
 
