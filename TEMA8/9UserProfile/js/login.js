@@ -24,15 +24,15 @@ function accedir(e) {
             },
             body: JSON.stringify(usuario)
         }).then(response => response.json())
-            .then(data => { console.log(data) 
-                if(data.error==null){
-                   console.log(data.data.token);
+            .then(data => {
+                console.log(data)
+                if (data.error == null) {
+                    console.log(data.data.token);
+                    localStorage.setItem("Token", JSON.stringify(data.data.token));
+                    window.location.href = "areaPersonal.html";
 
-                   
-                   
-                    //window.location.href="login.html";
-                }else{
-                    error2(email,data.error);
+                } else {
+                    error2(email, data.error);
                 }
             });
 
