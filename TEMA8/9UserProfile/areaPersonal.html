@@ -53,7 +53,7 @@
               <li class="nav-item dropdown">
                 <a id="user" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
-                  Àrea personal
+                  Àrea personalolol
                 </a>
 
 
@@ -85,29 +85,31 @@
 
           <div class="form-group">
             <label for="nom">Nom</label>
-            <input type="text" class="form-control" id="nom" name="nom" placeholder="Introduir nom" pattern=".{8,255}"
+            <input type="text" class="form-control" id="nom" name="nom" placeholder="Introduir nom" pattern="^[A-z]{3,15}$"
               required>
           </div>
 
           <div class="form-group">
             <label for="passworda">Contrasenya Actual</label>
-            <input type="password" class="form-control" id="passworda" name="passworda"
-              placeholder="Introduir contrasenya actual" ">
-            </div>
+            <input type="password" class="form-control" id="passworda" name="passworda" pattern="^[a-zA-Z0-9!@#$%^&*]{6,16}$"
+              placeholder="Introduir contrasenya actual " required>
+          </div>
   
-            <div class=" form-group">
+          <div class=" form-group">
             <div class="row">
               <div class="col">
                 <label for="password">Nova Contrasenya</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Contrasenya">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Contrasenya"  pattern="^[a-zA-Z0-9!@#$%^&*]{6,16}$" required>
               </div>
               <div class="col">
                 <label for="passwordc">Repetir contrasenya</label>
-                <input type="password" class="form-control" id="passwordc" name="passwordc"
-                  placeholder=" Repetir contrasenya">
+                <input type="password" class="form-control" id="passwordc" name="passwordc" pattern="^[a-zA-Z0-9!@#$%^&*]{6,16}$"
+                  placeholder=" Repetir contrasenya" required>
               </div>
             </div>
           </div>
+  
+      
           <button type="submit" id="enviar" class="mt-2 btn btn-primary">Actualitzar</button>
 
     </form>
