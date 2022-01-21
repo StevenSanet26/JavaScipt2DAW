@@ -72,7 +72,7 @@ function mostrarBebidas(mesas) {
         let borrar = document.createElement("button");
         borrar.setAttribute("class", "btn btn-primary btn-lg my-3");
         borrar.setAttribute("id", element._id);
-        borrar.setAttribute("onclick", "borrarMesa(this)");
+        borrar.setAttribute("onclick", "borrarBebida(this)");
         let contenido1 = document.createTextNode("Borrar");
         borrar.appendChild(contenido1);
         td1.appendChild(borrar);
@@ -81,7 +81,7 @@ function mostrarBebidas(mesas) {
         let modificar = document.createElement("button");
         modificar.setAttribute("class", "btn btn-primary btn-lg my-3");
         modificar.setAttribute("id", element._id);
-        modificar.setAttribute("onclick", "modificarMesa(this)");
+        modificar.setAttribute("onclick", "modificarBebida(this)");
         let contenido2 = document.createTextNode("Modificar");
         modificar.appendChild(contenido2);
         td2.appendChild(modificar);
@@ -146,7 +146,7 @@ function confirmar(e) {
                 body: JSON.stringify(bebida)
             }).then(response => response.json())
                 .then(data => {
-                    console.log(data.ok);
+                    console.log(data);
                     if (data.ok == true) {
                         alert("La mesa a sido creada");
                         cargarBebidas();
@@ -154,7 +154,7 @@ function confirmar(e) {
                 });
         } else {
             console.log("se modifica");
-            fetch("https://restaurante.serverred.es/api/mesas/" + idMesa.value, {
+            fetch("https://restaurante.serverred.es/api/bebidas/" + idMesa.value, {
                 method: "PUT",
                 headers: {
                     'Content-Type': 'application/json',
@@ -167,7 +167,7 @@ function confirmar(e) {
                     console.log(data);
                     if (data.ok == true) {
                         alert("La mesa a sido modificada");
-                        cargarMesas();
+                        cargarBebidas();
                     }
                 });
         }
@@ -227,4 +227,48 @@ function esborrarError(element) {
     /*for (var i = 0; i < formulari.elements.length; i++) {
         formulari.elements[i].className = "form-control";
     }*/
+}
+
+
+
+
+function modificarBebida(element) {
+
+    formulario.setAttribute("class", "");
+    let token;
+
+    if (JSON.parse(localStorage.getItem("Token")) != null) {
+        token = JSON.parse(localStorage.getItem("Token"));
+    }
+
+    fetch("https://restaurante.serverred.es/api/bebidas", {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json',
+            "auth-token": token
+        }
+    }).then(response => response.json())
+        .then(data => {
+            console.log(data.data);
+            let id = element.id;
+            mostrarBebida(data.data.data, id);
+        });
+
+}
+
+function mostrarBebida(bebida, id) {
+
+    bebida.forEach(element => {
+        if (element._id == id) {
+            console.log(id);
+            let nombre = document.getElementById("nombre");
+            let idMesa = document.getElementById("_id");
+            let precio = document.getElementById("precio");
+
+            nombre.setAttribute("value", element.nombre);
+            precio.setAttribute("value", element.precio);
+            idMesa.setAttribute("value", id)
+        }
+    });
 }
