@@ -9,7 +9,8 @@ function main() {
 
 function comprobarToken() {
     if (JSON.parse(localStorage.getItem("Token")) == null) {
-
+        alert("Tens que iniciar sessio per a entrar Mesas");
+        window.location.href = ("login.html");
     } else {
         let token;
         if (JSON.parse(localStorage.getItem("Token")) != null) {
@@ -233,6 +234,7 @@ function error2(element, missatge) {
 function esborrarError(element) {
     //var formulari = document.forms[0];
     element.className = " form-control";
+    document.getElementById("missatgeError").innerHTML="";
     /*for (var i = 0; i < formulari.elements.length; i++) {
         formulari.elements[i].className = "form-control";
     }*/
