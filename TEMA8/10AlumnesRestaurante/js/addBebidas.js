@@ -1,9 +1,6 @@
 window.onload = main;
 
-var arrayBebidas = new Array();
-var arrayMesas = new Array();
-var arrayCamareros = new Array();
-var arrayBebidasApi = new Array();
+
 
 function main() {
 
@@ -11,6 +8,11 @@ function main() {
     cargararMesas();
     document.getElementById("confirmar").addEventListener("click",confirmar,false);
 }
+
+var arrayBebidas = new Array();
+var arrayMesas = new Array();
+var arrayCamareros = new Array();
+var arrayBebidasApi = new Array();
 
 function cargararMesas() {
 
@@ -177,13 +179,13 @@ function cargarBebidasApi() {
         });
 }
 
-function mostrarBebidasApi(bebidasApi) {
+function mostrarBebidasApi() {
 
     let bebidas = document.getElementById("bebidas");
-    let div = document.createElement("div");
-    div.setAttribute("class", "row");
+ 
     arrayBebidasApi.forEach(element => {
-        
+        let div = document.createElement("div");
+        div.setAttribute("class", "row");
         let input = document.createElement("input");
 
         input.setAttribute("type", "button");
@@ -192,10 +194,10 @@ function mostrarBebidasApi(bebidasApi) {
         input.setAttribute("value", element.nombre);
         input.setAttribute("onclick", "sumarBebidas(this)");
         div.appendChild(input);
-
+        bebidas.appendChild(div);
         
     });
-    bebidas.appendChild(div);
+    
 }
 
 
