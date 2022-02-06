@@ -2,9 +2,9 @@ window.onload = main;
 
 function main() {
 
-    cargararMesas();
-
     cargarPlatosApi();
+    cargararMesas();
+    document.getElementById("confirmar").addEventListener("click",confirmar,false);
 }
 
 var arrayPlatosComanda = new Array();
@@ -33,13 +33,13 @@ function cargarPlatosApi() {
             data.data.data.forEach(element => {
                 arrayPlatosApi.push(element);
             });
-            console.log(arrayPlatosApi);
+            //console.log(arrayPlatosApi);
 
-            mostrarBebidasApi();
+            mostrarPlatosApi();
         });
 }
 
-function mostrarBebidasApi() {
+function mostrarPlatosApi() {
     let primero = document.getElementById("platosPrimero");
     let segundo = document.getElementById("platosSegundo");
     let postre = document.getElementById("platosPostre");
@@ -52,6 +52,7 @@ function mostrarBebidasApi() {
         input.setAttribute("type", "button");
         input.setAttribute("id", element._id);
         input.setAttribute("value", element.nombre);
+        input.setAttribute("onclick","sumarPlato(this)");
         div.appendChild(input);
 
         if (element.orden == "Primero") {
@@ -66,13 +67,7 @@ function mostrarBebidasApi() {
             input.setAttribute("class","mt-2 btn btn-warning p-3");
             postre.appendChild(div);
         }
-
-        
-
-
     });
-
-
 }
 
 function cargararMesas() {
@@ -135,24 +130,25 @@ function cargarComandas() {
 
 
 function mostrarDatos() {
+
     let nombre = document.getElementById("nombre");
-    let contenido1 = document.createTextNode(arrayBebidas.nombre);
+    let contenido1 = document.createTextNode(arrayPlatosComanda.nombre);
     nombre.appendChild(contenido1);
 
     let comensales = document.getElementById("comensales");
-    let contenido2 = document.createTextNode(arrayBebidas.comensales);
+    let contenido2 = document.createTextNode(arrayPlatosComanda.comensales);
     comensales.appendChild(contenido2);
 
     let mesa = document.getElementById("mesa");
-    let contenido3 = document.createTextNode(mostrarMesa(arrayBebidas.mesa));
+    let contenido3 = document.createTextNode(mostrarMesa(arrayPlatosComanda.mesa));
     mesa.appendChild(contenido3);
 
     let camarero = document.getElementById("camarero");
-    let contenido4 = document.createTextNode(mostrarCamarero(arrayBebidas.user));
+    let contenido4 = document.createTextNode(mostrarCamarero(arrayPlatosComanda.user));
     camarero.appendChild(contenido4);
 
     let hEntrada = document.getElementById("fechaEntrada");
-    let contenido5 = document.createTextNode(arrayBebidas.fechaEntrada);
+    let contenido5 = document.createTextNode(arrayPlatosComanda.fechaEntrada);
     hEntrada.appendChild(contenido5);
 }
 
@@ -169,7 +165,7 @@ function mostrarPlatosComanda() {
         let borrar = document.createElement("button");
         borrar.setAttribute("class", "btn btn-primary btn-lg my-3");
         borrar.setAttribute("id", element._id);
-        borrar.setAttribute("onclick", "borrarBebida(this)");
+        borrar.setAttribute("onclick", "borrarPlato(this)");
         borrar.setAttribute("type", "button");
         let contenido11 = document.createTextNode("Borrar");
         borrar.appendChild(contenido11);
@@ -195,37 +191,9 @@ function mostrarPlatosComanda() {
         comBebidas.appendChild(tr);
     });
 
-
 }
 
 
-function mostrarDatos() {
-
-    if (JSON.parse(localStorage.getItem("Comandas")) != null) {
-        arrayBebidas = JSON.parse(localStorage.getItem("Comandas"));
-    }
-
-
-    let nombre = document.getElementById("nombre");
-    let contenido1 = document.createTextNode(arrayBebidas.nombre);
-    nombre.appendChild(contenido1);
-
-    let comensales = document.getElementById("comensales");
-    let contenido2 = document.createTextNode(arrayBebidas.comensales);
-    comensales.appendChild(contenido2);
-
-    let mesa = document.getElementById("mesa");
-    let contenido3 = document.createTextNode(mostrarMesa(arrayBebidas.mesa));
-    mesa.appendChild(contenido3);
-
-    let camarero = document.getElementById("camarero");
-    let contenido4 = document.createTextNode(mostrarCamarero(arrayBebidas.user));
-    camarero.appendChild(contenido4);
-
-    let hEntrada = document.getElementById("fechaEntrada");
-    let contenido5 = document.createTextNode(arrayBebidas.fechaEntrada);
-    hEntrada.appendChild(contenido5);
-}
 
 
 function mostrarCamarero(user_id) {
@@ -265,3 +233,86 @@ function mostrarOrden(idPlato) {
     }
     return "No existe el plato";
 }
+
+function borrarPlato(elem){
+    let id = elem.id;
+
+    arrayPlatosComanda.platos.forEach((element,index)=>{
+        if (id == element._id) {
+            if (element.estado=="Servido") {
+
+                alert("No se puede borrar el plato, esta servido");
+            }else if(element.estado=="Pendiente"){
+                arrayPlatosComanda.platos.splice(index,1);
+                mostrarPlatosComanda();
+            }
+        }
+    });
+
+}
+function  sumarPlato(elem){
+    let id = elem.id;
+    var validator = false;
+
+    arrayPlatosComanda.platos.forEach(element => {
+        if (id == element._id) {
+            let cantidadSumada = element.cantidad + 1;
+            element.cantidad = cantidadSumada;
+            validator = true;
+            mostrarPlatosComanda();
+        } 
+    });
+
+    if (validator==false) {
+        arrayPlatosApi.forEach(element => {
+            if (id == element._id) {
+                let bebida = {
+                    "_id": element._id,
+                    "cantidad": 1,
+                    "estado": "Pendiente",
+                    "nombre": element.nombre,
+                    "precio": element.precio
+                }
+                arrayPlatosApi.platos.push(bebida);
+                mostrarPlatosComanda();
+            }
+        });
+    }
+
+}
+
+
+function confirmar(e){
+    e.preventDefault();
+    console.log(notas.value);
+
+    let token;
+    if (JSON.parse(localStorage.getItem("Token")) != null) {
+        token = JSON.parse(localStorage.getItem("Token"));
+    }
+
+
+    let platos = {
+
+        "platos":arrayPlatosComanda.platos,
+        "notas":notas.value
+    }
+
+    fetch("https://restaurante.serverred.es/api/comandas/platos/"+arrayPlatosComanda._id, {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "auth-token": token
+        },
+        body: JSON.stringify(platos)
+    }).then(response => response.json())
+
+        .then(data => {
+            console.log(data);
+           alert("Se ha actaulizado los Platos")
+            window.location.href="comandas.html";
+        });
+}
+
+
