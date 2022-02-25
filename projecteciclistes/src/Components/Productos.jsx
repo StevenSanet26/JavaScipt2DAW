@@ -47,9 +47,9 @@ const addModal = (values) => {
 
 
 
-const actualizar = (value) =>{
-    console.log(value.id);
-}
+
+
+
 
 const Productos = () => {
     const [products, setProducts] = useState([]);
@@ -63,7 +63,6 @@ const Productos = () => {
     const obtenerProductos = () => {
 
         let token = JSON.parse(localStorage.getItem("Token"));
-
         fetch('https://api.tendaciclista.ccpegoilesvalls.es/api/productos', {
             method: "GET",
             headers: {
@@ -72,12 +71,41 @@ const Productos = () => {
                 "auth-token": token
             }
         })
-
-
             .then(response => response.json())
             .then(data => {
                 console.log(data.data.data);
                 setProducts(data.data.data);
+            });
+    }
+
+
+    const actualizar = (value) =>{
+        console.log(value.target.id);
+        let id = value.target.id
+    
+        {products.map(producte => {
+            if({producte._id}==id){
+                    log("entra");
+            }
+            
+        })}
+    
+        let token = JSON.parse(localStorage.getItem("Token"));
+    
+        fetch('https://api.tendaciclista.ccpegoilesvalls.es/api/productos/'+id, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept': 'application/json',
+                "auth-token": token
+            }
+        })
+    
+    
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                //setProducts(data.data.data);
             });
     }
 
@@ -89,7 +117,7 @@ const Productos = () => {
                     <div className="row mb-5">
                         <div className="col-lg-12">
                             <h1 className="mt-5">Productos</h1>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
                                 Agregar Producto
                             </button>
                         </div>
@@ -108,16 +136,16 @@ const Productos = () => {
                                 <tbody>
                                     {products.map(producte => {
                                         return (
-                                            <tr>
+                                            <tr key={producte._id}>
                                                 <td>{producte.nombre}</td>
                                                 <td>{producte.precio}</td>
-                                                <td>{producte.tallas}</td>
+                                                <td>{producte.tallas.map(elem => elem + " ")}</td>
                                                 <td>
-                                                    <button type="button" id={producte._id} onClick={()=>{actualizar()}} className="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#editModal">
-                                                        <i class="bi bi-pencil-square"></i>
+                                                    <button type="button" id={producte._id} onClick={actualizar} className="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#editModal">
+                                                        <i className="bi bi-pencil-square"></i>
                                                     </button>
 
-                                                    <Button className="btn-danger"><i class="bi bi-trash"></i></Button>
+                                                    <Button className="btn-danger"><i className="bi bi-trash"></i></Button>
                                                 </td>
                                             </tr>
                                         )
@@ -128,14 +156,14 @@ const Productos = () => {
                     </div>
                 </div>
 
-                <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Nuevo Producto</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div className="modal fade" id="addModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">Nuevo Producto</h5>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
+                            <div className="modal-body">
                                 <Formik initialValues={{ nombre: "", precio: "", tallas: "" }}
                                     validationSchema={EsquemaFormulari}
                                     onSubmit={values => {
@@ -188,7 +216,7 @@ const Productos = () => {
                                                 </div>
                                                 <div className="text-end">
                                                     <button type="submit" className="btn btn-primary mt-4 me-2 btn-block">Insertar</button>
-                                                    <button type="button" class="btn btn-primary mt-4 me-2" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                                                    <button type="button" className="btn btn-primary mt-4 me-2" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
                                                 </div>
                                             </Form>
                                         </div>
@@ -201,14 +229,14 @@ const Productos = () => {
                     </div>
                 </div>
 
-                <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
+                <div className="modal fade" id="editModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Nuevo Producto</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">Nuevo Producto</h5>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
+                            <div className="modal-body">
                                 <Formik initialValues={{ nombre: "", precio: "", tallas: "" }}
                                     validationSchema={EsquemaFormulari}
                                     onSubmit={values => {
@@ -261,7 +289,7 @@ const Productos = () => {
                                                 </div>
                                                 <div className="text-end">
                                                     <button type="submit" className="btn btn-primary mt-4 me-2 btn-block">Insertar</button>
-                                                    <button type="button" class="btn btn-primary mt-4 me-2" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                                                    <button type="button" className="btn btn-primary mt-4 me-2" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
                                                 </div>
                                             </Form>
                                         </div>
