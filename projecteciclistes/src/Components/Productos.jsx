@@ -46,6 +46,36 @@ const addModal = (values) => {
 }
 
 
+const actualizar = (value) => {
+    console.log(value.target.id);
+    let id = value.target.id
+
+    
+
+
+    const obtenerProduc = () => {
+
+
+        let token = JSON.parse(localStorage.getItem("Token"));
+
+        fetch('https://api.tendaciclista.ccpegoilesvalls.es/api/productos/' + id, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept': 'application/json',
+                "auth-token": token
+            }
+        }).then(response => response.json())
+            .then(data => {
+                console.log(data);
+                
+            });
+
+    }
+
+}
+
+
 
 
 
@@ -53,6 +83,7 @@ const addModal = (values) => {
 
 const Productos = () => {
     const [products, setProducts] = useState([]);
+    const [actu, setActu] = useState([]);
 
     useEffect(() => {
         //obtener productos
@@ -79,35 +110,55 @@ const Productos = () => {
     }
 
 
-    const actualizar = (value) =>{
+    const actualizar = (value) => {
         console.log(value.target.id);
         let id = value.target.id
     
-        {products.map(producte => {
-            if({producte._id}==id){
-                    log("entra");
-            }
-            
-        })}
+     
     
-        let token = JSON.parse(localStorage.getItem("Token"));
-    
-        fetch('https://api.tendaciclista.ccpegoilesvalls.es/api/productos/'+id, {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Accept': 'application/json',
-                "auth-token": token
-            }
-        })
+        
     
     
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                //setProducts(data.data.data);
-            });
+            let token = JSON.parse(localStorage.getItem("Token"));
+    
+            fetch('https://api.tendaciclista.ccpegoilesvalls.es/api/productos/' + id, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json',
+                    "auth-token": token
+                }
+            }).then(response => response.json())
+                .then(data => {
+                    console.log(data.data.data);
+                    setActu(data.data.data);
+                });
+    
+        
+    
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     return (
@@ -156,7 +207,7 @@ const Productos = () => {
                     </div>
                 </div>
 
-                <div className="modal fade" id="addModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal fade" id="addModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -228,12 +279,11 @@ const Productos = () => {
                         </div>
                     </div>
                 </div>
-
                 <div className="modal fade" id="editModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
-                        <div class="modal-content">
+                        <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">Nuevo Producto</h5>
+                                <h5 className="modal-title" id="exampleModalLabel">Edit Producto</h5>
                                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div className="modal-body">
@@ -251,8 +301,14 @@ const Productos = () => {
                                                 <div className="mb-3 row">
                                                     <label htmlFor="nombre" className="col-sm-2 col-form-label">Nombre</label>
                                                     <div className="col-sm-10">
+                                                    {actu.map(pro => {
+                                                        return(
+                                                            {pro.nombre}
+                                                            )
+                                                    })}
                                                         <Field
                                                             type="nombre"
+                                                            
                                                             name="nombre"
 
                                                             className="form-control"
